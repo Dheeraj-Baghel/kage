@@ -6,6 +6,11 @@ selected a new application; the existing workspace apps remain unchanged.
 
 **Local app: [http://127.0.0.1:4329](http://127.0.0.1:4329/).**
 
+**Live site:** [https://kage-softtech10.vercel.app](https://kage-softtech10.vercel.app)
+· **Private GitHub source:** [Dheeraj-Baghel/kage](https://github.com/Dheeraj-Baghel/kage)
+· [Deployment notes and hosted verification](DEPLOYMENT.md).
+Pushes to `main` deploy automatically to the separate Vercel project.
+
 ## Run and verify
 
 Tested with Node **24.13.0** and npm **11.6.2**.
@@ -111,8 +116,12 @@ also retained in the report; the sandbox is not claimed to isolate untrusted
 third-party content.
 
 Physical-device touch, Safari/Firefox, assistive-technology review and sustained
-GPU performance are not claimed. No deployment, credentials, backend, commerce
-or changes to existing applications were added.
+GPU performance are not claimed. The user authorized GitHub publication and Vercel
+hosting on 26 October 2026; no backend, commerce, app secrets or changes to other
+applications were added. The full **26/26 browser workflow groups now also pass
+against the hosted origin**, after correcting test timing assumptions (see deployment notes).
+Local captures under `artifacts/testing/` are kept in this workspace, not pushed to
+GitHub or served by Vercel. Existing screenshot links refer to those local files.
 
 Upstream [MIT license](vendor/threeui/LICENSE),
 [asset notices](vendor/threeui/ASSET-LICENSES.md),

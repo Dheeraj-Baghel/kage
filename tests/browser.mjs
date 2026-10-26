@@ -47,17 +47,19 @@ async function openSession(name, options = {}, init) {
   });
   sessions.push(evidence);
   await page.goto(baseUrl, { waitUntil: "load", timeout: 60000 });
-  await page.locator('.landing-page-frame[data-state="ready"]').waitFor();
+  // Cold HTTPS loads plus headless shader compilation can exceed the ordinary
+  // interaction timeout. Still require real readiness; do not skip the preloader.
+  await page.locator('.landing-page-frame[data-state="ready"]').waitFor({ timeout: 120000 });
   const iframe = await page.locator("iframe").elementHandle();
   const frame = await iframe.contentFrame();
   assert.ok(frame, "The authored frame must be available");
   await frame.waitForFunction(() => window.__kage && document.querySelector("#pre.done") && !document.body.classList.contains("is-locked"), null, { timeout: 120000 });
-  await frame.locator("#pre").waitFor({ state: "hidden" });
+  await frame.locator("#pre").waitFor({ state: "hidden", timeout: 120000 });
   return { context, page, frame, evidence };
 }
 
 async function screenshot(page, name) {
-  await page.screenshot({ path: path.join(artifacts, `${name}.png`), animations: "allow" });
+  await page.screenshot({ path: path.join(artifacts, `${name}.png`), animations: "allow", timeout: 120000 });
 }
 
 async function scrollSettled(frame, target) {
@@ -179,7 +181,9 @@ try {
   await frame.waitForTimeout(3800);
   await check("Temple animation advances and the original entrance reveal completes", async () => {
     const before = await frame.evaluate(() => window.__kage.WORLD.uT.value);
-    await frame.waitForTimeout(800);
+    // Wait for an actual rendered animation step, not an assumed 800ms frame
+    // budget on a busy software-GPU host. The advancement assertion is unchanged.
+    await frame.waitForFunction((previous) => window.__kage.WORLD.uT.value > previous, before, { timeout: 30000 });
     const after = await frame.evaluate(() => window.__kage.WORLD.uT.value);
     assert.ok(after > before);
     assert.equal(await frame.locator("#hero .mask-line.rv-in").count(), 3);
