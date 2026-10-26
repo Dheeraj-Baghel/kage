@@ -1,0 +1,22 @@
+/* Host sizing only: all temple styling remains in the exact authored source.
+   Scroll belongs to ThreeUI's original full-document frame, not a second page. */
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: #05070a;
+  overflow: hidden;
+}
+
+.shader-frame {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.shader-frame > .landing-page-frame {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,30 @@
+{
+  "name": "kage-temple-experience",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4329 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "verify:source": "node scripts/verify-source.mjs",
+    "build": "npm run verify:source && npm run typecheck && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4329 --strictPort",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "dependencies": {
+    "@designcodeio/threeui": "1.2.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "three": "0.149.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.1"
+  }
+}
